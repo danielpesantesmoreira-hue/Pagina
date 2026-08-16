@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago no completado — Riorise Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#080D18; --night-2:#0E1526; --dawn-coral:#FF5D7A; --river-teal:#24B6A6;
+    --ink-0:#EDEFF6; --ink-1:#A9B1C6; --line:rgba(237,239,246,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(90% 60% at 50% 0%, rgba(255,93,122,0.14) 0%, transparent 55%), var(--night);
+    font-family:'Inter',sans-serif; color:var(--ink-0); padding:24px;
+  }
+  .card{
+    max-width:440px; text-align:center; background:var(--night-2);
+    border:1px solid var(--line); border-radius:18px; padding:44px 32px;
+  }
+  .icon{
+    width:64px; height:64px; margin:0 auto 22px; border-radius:50%;
+    background:rgba(255,93,122,0.14); display:flex; align-items:center; justify-content:center;
+  }
+  h1{ font-family:'Rajdhani',sans-serif; font-size:30px; font-weight:700; }
+  p{ margin-top:12px; font-size:15px; color:var(--ink-1); line-height:1.6; }
+  .actions{ display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap; }
+  a.btn{
+    display:inline-flex; padding:13px 26px; border-radius:999px;
+    font-weight:600; text-decoration:none; font-size:14.5px;
+  }
+  a.btn-primary{ background:var(--river-teal); color:#06110E; }
+  a.btn-ghost{ background:rgba(237,239,246,0.05); border:1px solid var(--line); color:var(--ink-0); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF5D7A" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </div>
+    <h1>El pago no se completó</h1>
+    <p>Tu pago fue rechazado o cancelado y no se realizó ningún cobro. Puedes intentarlo de nuevo o escribirnos por WhatsApp si necesitas ayuda.</p>
+    <div class="actions">
+      <a href="/" class="btn btn-primary">Intentar de nuevo</a>
+      <a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener" class="btn btn-ghost">Escribir por WhatsApp</a>
+    </div>
+  </div>
+</body>
+</html>

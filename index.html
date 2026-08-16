@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Riorise — Tienda oficial de Paneles</title>
+<meta name="description" content="Compra Paneles para Riorise de forma rápida y segura. Entrega inmediata y atención por WhatsApp y Discord.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================
+     TOKENS — Riorise: amanecer sobre el río
+     ============================================ */
+  :root{
+    --night:        #080D18;   /* fondo base, noche cerrada */
+    --night-2:      #0E1526;   /* paneles / tarjetas */
+    --night-3:      #141D33;   /* bordes, hover */
+    --river-teal:   #24B6A6;   /* el río */
+    --river-teal-2: #1A8C80;
+    --dawn-amber:   #FF8A3D;   /* el amanecer */
+    --dawn-coral:   #FF5D7A;
+    --ink-0:        #EDEFF6;   /* texto principal */
+    --ink-1:        #A9B1C6;   /* texto secundario */
+    --ink-2:        #6B7390;   /* texto terciario / fine print */
+    --line:         rgba(237,239,246,0.08);
+
+    --font-display: 'Rajdhani', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --font-mono:    'JetBrains Mono', monospace;
+
+    --container: 1180px;
+    --radius: 14px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  html, body{ background:var(--night); }
+
+  body{
+    font-family:var(--font-body);
+    color:var(--ink-0);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  .container{
+    width:100%;
+    max-width:var(--container);
+    margin-inline:auto;
+    padding-inline:24px;
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:700;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--river-teal);
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px; height:1px;
+    background:var(--river-teal);
+  }
+
+  /* Reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s cubic-bezier(.16,.8,.3,1), transform .8s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.08s; }
+  .reveal-delay-2{ transition-delay:.16s; }
+  .reveal-delay-3{ transition-delay:.24s; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
+  }
+
+  /* ============================================
+     HEADER
+     ============================================ */
+  .site-header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    padding:18px 0;
+    background:transparent;
+    border-bottom:1px solid transparent;
+    transition:background .35s ease, border-color .35s ease, padding .35s ease;
+  }
+  .site-header.is-scrolled{
+    background:rgba(8,13,24,0.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:12px 0;
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-display);
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+  .brand-mark{
+    width:30px; height:30px;
+    flex-shrink:0;
+  }
+  .brand span{ color:var(--dawn-amber); }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:36px;
+  }
+  .nav-links a{
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink-1);
+    transition:color .25s ease;
+    position:relative;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink-0); }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-6px;
+    height:2px;
+    background:linear-gradient(90deg, var(--river-teal), var(--dawn-amber));
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .3s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+
+  .nav-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:999px;
+    background:var(--river-teal);
+    color:var(--night);
+    font-weight:600;
+    font-size:14px;
+    transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+  .nav-cta:hover{ background:var(--river-teal-2); transform:translateY(-1px); box-shadow:0 8px 20px -8px rgba(36,182,166,0.6); }
+
+  .nav-toggle{
+    display:none;
+    width:40px; height:40px;
+    align-items:center; justify-content:center;
+    background:transparent; border:1px solid var(--line); border-radius:10px;
+  }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+    content:"";
+    display:block;
+    width:18px; height:2px;
+    background:var(--ink-0);
+    position:relative;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .nav-toggle span::before{ position:absolute; top:-6px; }
+  .nav-toggle span::after{ position:absolute; top:6px; }
+  .nav-toggle.is-open span{ background:transparent; }
+  .nav-toggle.is-open span::before{ top:0; transform:rotate(45deg); background:var(--ink-0); }
+  .nav-toggle.is-open span::after{ top:0; transform:rotate(-45deg); background:var(--ink-0); }
+
+  .mobile-panel{
+    position:fixed;
+    inset:0;
+    top:0;
+    background:rgba(8,13,24,0.98);
+    backdrop-filter:blur(14px);
+    z-index:99;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .35s ease, visibility .35s ease;
+  }
+  .mobile-panel.is-open{ opacity:1; visibility:visible; }
+  .mobile-panel a{
+    font-family:var(--font-display);
+    font-size:26px;
+    font-weight:600;
+    color:var(--ink-0);
+  }
+  .mobile-panel .nav-cta{ margin-top:12px; }
+
+  /* ============================================
+     HERO — río + amanecer
+     ============================================ */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:140px;
+    padding-bottom:100px;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 70% at 50% 0%, rgba(255,138,61,0.16) 0%, rgba(255,138,61,0) 55%),
+      linear-gradient(180deg, #080D18 0%, #0A1120 55%, #0B1424 100%);
+  }
+  .hero-glow{
+    position:absolute;
+    left:50%; top:-10%;
+    width:900px; height:900px;
+    transform:translateX(-50%);
+    background:radial-gradient(circle, rgba(255,138,61,0.22) 0%, rgba(255,93,122,0.08) 40%, transparent 72%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .hero-river{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    width:100%;
+    height:auto;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(48px, 9vw, 108px);
+    letter-spacing:0.01em;
+    margin-top:18px;
+    background:linear-gradient(100deg, #F4F6FB 0%, #F4F6FB 40%, var(--dawn-amber) 78%, var(--dawn-coral) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero-sub{
+    max-width:560px;
+    margin:22px auto 0;
+    font-size:17px;
+    color:var(--ink-1);
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 28px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:15px;
+    border:1px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
+    color:#100804;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(255,120,80,0.55); }
+  .btn-ghost{
+    background:rgba(237,239,246,0.04);
+    border-color:var(--line);
+    color:var(--ink-0);
+  }
+  .btn-ghost:hover{ background:rgba(237,239,246,0.08); border-color:rgba(237,239,246,0.2); transform:translateY(-2px); }
+
+  .hero-stats{
+    position:relative;
+    z-index:2;
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    max-width:760px;
+    margin-inline:auto;
+    border-top:1px solid var(--line);
+    padding-top:26px;
+  }
+  .hero-stats div{ text-align:center; }
+  .hero-stats strong{
+    display:block;
+    font-family:var(--font-display);
+    font-size:26px;
+    color:var(--ink-0);
+  }
+  .hero-stats span{
+    font-size:12.5px;
+    color:var(--ink-2);
+    letter-spacing:0.03em;
+  }
+
+  /* ============================================
+     FRANJA DE CONFIANZA
+     ============================================ */
+  .trust{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--night-2);
+  }
+  .trust-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0;
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:26px 24px;
+    border-left:1px solid var(--line);
+  }
+  .trust-item:first-child{ border-left:none; }
+  .trust-item svg{ flex-shrink:0; color:var(--river-teal); }
+  .trust-item h3{ font-size:15px; font-family:var(--font-body); font-weight:600; color:var(--ink-0); }
+  .trust-item p{ font-size:13px; color:var(--ink-2); margin-top:2px; }
+
+  /* ============================================
+     SECCIONES — genérico
+     ============================================ */
+  section{ padding:120px 0; position:relative; }
+  .section-head{
+    max-width:600px;
+    margin-bottom:56px;
+  }
+  .section-head h2{
+    font-size:clamp(32px, 4.5vw, 48px);
+    margin-top:14px;
+    color:var(--ink-0);
+  }
+  .section-head p{
+    margin-top:14px;
+    font-size:16px;
+    color:var(--ink-1);
+    max-width:520px;
+  }
+
+  /* ============================================
+     PANELES — pricing
+     ============================================ */
+  .panels-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+  }
+  .panel-card{
+    position:relative;
+    background:linear-gradient(180deg, var(--night-2) 0%, #0C1220 100%);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:30px 24px 26px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .panel-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(36,182,166,0.4);
+    box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .panel-card.is-popular{
+    border-color:rgba(255,138,61,0.5);
+    background:linear-gradient(180deg, #11192B 0%, #0C1220 100%);
+  }
+  .popular-tag{
+    position:absolute;
+    top:-13px; left:24px;
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
+    color:#100804;
+    padding:5px 12px;
+    border-radius:999px;
+    font-weight:600;
+  }
+  .panel-icon{
+    width:46px; height:46px;
+    margin-bottom:18px;
+  }
+  .panel-amount{
+    font-family:var(--font-display);
+    font-size:30px;
+    font-weight:700;
+    color:var(--ink-0);
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+  }
+  .panel-amount small{
+    font-family:var(--font-body);
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--ink-2);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .panel-label{
+    margin-top:2px;
+    font-size:12.5px;
+    color:var(--ink-2);
+  }
+  .panel-price{
+    margin-top:22px;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+    font-family:var(--font-display);
+    font-size:26px;
+    font-weight:700;
+    color:var(--river-teal);
+  }
+  .panel-card.is-popular .panel-price{ color:var(--dawn-amber); }
+  .panel-price sup{ font-size:13px; top:-0.6em; }
+
+  .panel-buy{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    padding:12px 18px;
+    border-radius:10px;
+    background:rgba(237,239,246,0.05);
+    border:1px solid var(--line);
+    color:var(--ink-0);
+    font-weight:600;
+    font-size:14px;
+    transition:background .25s ease, border-color .25s ease, transform .2s ease;
+  }
+  .panel-buy:hover{
+    background:var(--river-teal);
+    border-color:var(--river-teal);
+    color:var(--night);
+    transform:translateY(-2px);
+  }
+  .panel-card.is-popular .panel-buy{
+    background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
+    border-color:transparent;
+    color:#100804;
+  }
+  .panel-card.is-popular .panel-buy:hover{ filter:brightness(1.08); }
+
+  .panel-buy:disabled{
+    opacity:0.7;
+    cursor:wait;
+    transform:none;
+  }
+  .checkout-error{
+    margin-top:16px;
+    padding:12px 16px;
+    border-radius:10px;
+    background:rgba(255,93,122,0.1);
+    border:1px solid rgba(255,93,122,0.35);
+    color:#FF9CB0;
+    font-size:13.5px;
+    display:none;
+  }
+  .checkout-error.is-visible{ display:block; }
+
+  .panels-note{
+    margin-top:26px;
+    font-size:13px;
+    color:var(--ink-2);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  /* ============================================
+     RÍO divisor
+     ============================================ */
+  .river-divider{
+    width:100%;
+    height:auto;
+    display:block;
+    margin-top:-1px;
+  }
+
+  /* ============================================
+     COMUNIDAD / ATENCIÓN AL CLIENTE
+     ============================================ */
+  .community{
+    background:
+      radial-gradient(90% 60% at 50% 100%, rgba(36,182,166,0.10) 0%, transparent 60%),
+      var(--night-2);
+    border-top:1px solid var(--line);
+  }
+  .community .section-head{ margin-inline:auto; text-align:center; max-width:560px; }
+  .community .eyebrow{ margin-inline:auto; }
+
+  .community-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    max-width:820px;
+    margin-inline:auto;
+  }
+  .community-card{
+    background:var(--night);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:38px 30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .community-card:hover{ transform:translateY(-6px); }
+  .community-card.whatsapp:hover{ border-color:rgba(36,182,166,0.5); }
+  .community-card.discord:hover{ border-color:rgba(114,137,218,0.5); }
+
+  .community-icon{
+    width:64px; height:64px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+  }
+  .community-icon.whatsapp{ background:rgba(36,182,166,0.12); color:#2FD9B9; }
+  .community-icon.discord{ background:rgba(114,137,218,0.14); color:#8B9EFF; }
+
+  .community-card h3{
+    font-family:var(--font-body);
+    font-size:19px;
+    font-weight:700;
+    color:var(--ink-0);
+  }
+  .community-card p{
+    margin-top:8px;
+    font-size:13.5px;
+    color:var(--ink-2);
+  }
+  .community-number{
+    margin-top:16px;
+    font-family:var(--font-mono);
+    font-size:14px;
+    color:var(--ink-1);
+    letter-spacing:0.02em;
+  }
+  .community-cta{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 22px;
+    border-radius:999px;
+    font-size:13.5px;
+    font-weight:600;
+    transition:transform .25s ease, filter .25s ease;
+  }
+  .community-cta.whatsapp{ background:#24B6A6; color:#06110E; }
+  .community-cta.discord{ background:#7289DA; color:#0B0E1D; }
+  .community-cta:hover{ transform:translateY(-2px); filter:brightness(1.08); }
+
+  /* ============================================
+     FOOTER
+     ============================================ */
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 0 30px;
+    background:var(--night);
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:40px;
+    padding-bottom:36px;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-brand .brand{ margin-bottom:12px; }
+  .footer-brand p{
+    max-width:280px;
+    font-size:13.5px;
+    color:var(--ink-2);
+  }
+  .footer-cols{
+    display:flex;
+    gap:64px;
+    flex-wrap:wrap;
+  }
+  .footer-col h4{
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-2);
+    margin-bottom:14px;
+    font-family:var(--font-mono);
+    font-weight:500;
+  }
+  .footer-col a, .footer-col span{
+    display:block;
+    font-size:14px;
+    color:var(--ink-1);
+    margin-bottom:10px;
+    transition:color .2s ease;
+  }
+  .footer-col a:hover{ color:var(--ink-0); }
+
+  .footer-fine{
+    margin-top:26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .footer-fine p{
+    font-size:11.5px;
+    line-height:1.7;
+    color:var(--ink-2);
+    max-width:720px;
+  }
+  .footer-fine .support{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--ink-2);
+  }
+  .footer-fine .support a{ color:var(--ink-1); }
+  .footer-fine .support a:hover{ color:var(--river-teal); }
+
+  /* ============================================
+     WHATSAPP FLOTANTE (móvil)
+     ============================================ */
+  .float-whatsapp{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:90;
+    width:56px; height:56px;
+    border-radius:50%;
+    background:#24B6A6;
+    color:#06110E;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 12px 26px -8px rgba(36,182,166,0.55);
+    transition:transform .25s ease;
+  }
+  .float-whatsapp:active{ transform:scale(0.94); }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 980px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:flex; }
+    .trust-grid{ grid-template-columns:1fr; }
+    .trust-item{ border-left:none; border-top:1px solid var(--line); }
+    .trust-item:first-child{ border-top:none; }
+    .panels-grid{ grid-template-columns:repeat(2, 1fr); }
+    .community-grid{ grid-template-columns:1fr; }
+    section{ padding:88px 0; }
+    .float-whatsapp{ display:flex; }
+  }
+
+  @media (max-width: 620px){
+    .hero{ padding-top:120px; padding-bottom:70px; }
+    .hero-actions{ flex-direction:column; width:100%; }
+    .hero-actions .btn{ width:100%; justify-content:center; }
+    .hero-stats{ grid-template-columns:repeat(3,1fr); gap:10px; margin-top:50px; }
+    .hero-stats strong{ font-size:20px; }
+    .panels-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+    .panel-card{ padding:22px 16px 20px; }
+    .panel-amount{ font-size:24px; }
+    .panel-price{ font-size:21px; }
+    .footer-top{ flex-direction:column; }
+    .footer-cols{ gap:40px; }
+    .footer-fine{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (max-width: 400px){
+    .panels-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a href="#top" class="brand" aria-label="Riorise — inicio">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z" stroke="url(#brandGrad)" stroke-width="2"/>
+        <path d="M16 2 V30 M4 9 L28 23 M28 9 L4 23" stroke="url(#brandGrad)" stroke-width="1" opacity="0.5"/>
+        <defs>
+          <linearGradient id="brandGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#24B6A6"/>
+            <stop offset="1" stop-color="#FF8A3D"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      RIO<span>RISE</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#paneles">Paneles</a>
+      <a href="#comunidad">Comunidad</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a href="#paneles" class="nav-cta" style="display:none" id="navCtaDesktop">Comprar ahora</a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Menú móvil -->
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#inicio" class="mobile-link">Inicio</a>
+  <a href="#paneles" class="mobile-link">Paneles</a>
+  <a href="#comunidad" class="mobile-link">Comunidad</a>
+  <a href="#contacto" class="mobile-link">Contacto</a>
+  <a href="#paneles" class="btn btn-primary mobile-link">Comprar ahora</a>
+</div>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="inicio">
+  <a id="top"></a>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="container hero-inner">
+    <span class="eyebrow" style="justify-content:center">Tienda no oficial de paneles</span>
+    <h1 class="reveal is-visible">PANELES<br>PARA RIORISE</h1>
+    <p class="hero-sub reveal is-visible reveal-delay-1">
+      Recarga tus Paneles y sigue avanzando en Riorise. Compra directa por WhatsApp,
+      entrega rápida y una comunidad activa en Discord esperándote.
+    </p>
+
+    <div class="hero-actions reveal is-visible reveal-delay-2">
+      <a href="#paneles" class="btn btn-primary">
+        Ver paquetes de Paneles
+      </a>
+      <a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.89.53 3.66 1.44 5.17L2 22l4.97-1.4A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.76 1.24-.45.05-1 .07-1.62-.1-.37-.1-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.9-2.12.23-.25.5-.31.67-.31h.48c.15 0 .36-.06.56.43.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.26.33-.37.44-.12.12-.25.26-.11.5.14.25.63 1.04 1.35 1.68.93.83 1.71 1.09 1.96 1.21.25.12.4.1.55-.06.15-.17.63-.73.8-.98.17-.25.34-.2.56-.12.23.08 1.47.7 1.72.82.25.13.42.19.48.29.06.11.06.62-.16 1.24z"/></svg>
+        Unirme a la comunidad
+      </a>
+    </div>
+
+    <div class="hero-stats reveal is-visible reveal-delay-3">
+      <div>
+        <strong>+1200</strong>
+        <span>Jugadores atendidos</span>
+      </div>
+      <div>
+        <strong>&lt; 15 min</strong>
+        <span>Tiempo de entrega</span>
+      </div>
+      <div>
+        <strong>24 / 7</strong>
+        <span>Soporte activo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Río animado: signature element -->
+  <svg class="hero-river" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="riverGrad" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#FF8A3D" stop-opacity="0.55"/>
+        <stop offset="45%" stop-color="#24B6A6" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#1A8C80" stop-opacity="0.35"/>
+      </linearGradient>
+    </defs>
+    <path id="riverPath" fill="none" stroke="url(#riverGrad)" stroke-width="2"
+      d="M0,120 C 240,60 480,160 720,100 C 960,40 1200,140 1440,80"/>
+    <path fill="url(#riverGrad)" opacity="0.08"
+      d="M0,140 C 240,90 480,170 720,120 C 960,70 1200,150 1440,100 L1440,180 L0,180 Z"/>
+  </svg>
+</section>
+
+<!-- ============================================
+     FRANJA DE CONFIANZA
+     ============================================ -->
+<div class="trust reveal">
+  <div class="container trust-grid">
+    <div class="trust-item">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+      <div>
+        <h3>Entrega inmediata</h3>
+        <p>Recibes tus Paneles apenas confirmamos el pago.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/></svg>
+      <div>
+        <h3>Compra directa y segura</h3>
+        <p>Coordinada uno a uno por WhatsApp, sin intermediarios.</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      <div>
+        <h3>Comunidad activa</h3>
+        <p>Únete a cientos de jugadores en WhatsApp y Discord.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     PANELES — PRECIOS
+     ============================================ -->
+<section id="paneles">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Paquetes disponibles</span>
+      <h2>Elige tus Paneles</h2>
+      <p>Selecciona el paquete que más te convenga y paga directo con Mercado Pago: tarjeta, PSE, Nequi y más.</p>
+    </div>
+
+    <div class="panels-grid">
+
+      <!-- Paquete 1 -->
+      <div class="panel-card reveal" data-package-id="pack-60" data-price="6000">
+        <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#24B6A6" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#24B6A6" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <div class="panel-amount">60 <small>Paneles</small></div>
+        <p class="panel-label">Paquete inicial</p>
+        <div class="panel-price">$6.000 <sup>COP</sup></div>
+        <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
+      </div>
+
+      <!-- Paquete 2 -->
+      <div class="panel-card reveal reveal-delay-1" data-package-id="pack-325" data-price="28000">
+        <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#24B6A6" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#24B6A6" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <div class="panel-amount">325 <small>Paneles</small></div>
+        <p class="panel-label">Paquete estándar</p>
+        <div class="panel-price">$28.000 <sup>COP</sup></div>
+        <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
+      </div>
+
+      <!-- Paquete 3 — popular -->
+      <div class="panel-card is-popular reveal reveal-delay-2" data-package-id="pack-660" data-price="54000">
+        <span class="popular-tag">Más elegido</span>
+        <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#FF8A3D" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#FF8A3D" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+        <div class="panel-amount">660 <small>Paneles</small></div>
+        <p class="panel-label">Mejor relación</p>
+        <div class="panel-price">$54.000 <sup>COP</sup></div>
+        <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
+      </div>
+
+      <!-- Paquete 4 -->
+      <div class="panel-card reveal reveal-delay-3" data-package-id="pack-1800" data-price="128000">
+        <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#24B6A6" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#24B6A6" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <div class="panel-amount">1800 <small>Paneles</small></div>
+        <p class="panel-label">Paquete pro</p>
+        <div class="panel-price">$128.000 <sup>COP</sup></div>
+        <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
+      </div>
+
+    </div>
+
+    <p class="checkout-error" id="checkoutError">
+      No pudimos iniciar tu pago. Intenta de nuevo o escríbenos por WhatsApp.
+    </p>
+
+    <p class="panels-note reveal" id="panelsNote">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Pago 100% seguro procesado por Mercado Pago. Aceptamos tarjeta, PSE, Nequi y más.
+    </p>
+  </div>
+</section>
+
+<!-- Río divisor -->
+<svg class="river-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path fill="#0E1526" d="M0,40 C 360,0 1080,80 1440,40 L1440,80 L0,80 Z"/>
+</svg>
+
+<!-- ============================================
+     COMUNIDAD / ATENCIÓN AL CLIENTE
+     ============================================ -->
+<section class="community" id="comunidad">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Atención al cliente</span>
+      <h2>Estamos en tu comunidad</h2>
+      <p>Escríbenos por WhatsApp para comprar o resolver dudas, y únete a nuestro Discord para enterarte de promociones y novedades de Riorise.</p>
+    </div>
+
+    <div class="community-grid" id="contacto">
+
+      <div class="community-card whatsapp reveal">
+        <div class="community-icon whatsapp">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.89.53 3.66 1.44 5.17L2 22l4.97-1.4A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.76 1.24-.45.05-1 .07-1.62-.1-.37-.1-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.9-2.12.23-.25.5-.31.67-.31h.48c.15 0 .36-.06.56.43.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.26.33-.37.44-.12.12-.25.26-.11.5.14.25.63 1.04 1.35 1.68.93.83 1.71 1.09 1.96 1.21.25.12.4.1.55-.06.15-.17.63-.73.8-.98.17-.25.34-.2.56-.12.23.08 1.47.7 1.72.82.25.13.42.19.48.29.06.11.06.62-.16 1.24z"/></svg>
+        </div>
+        <h3>Comunidad de WhatsApp</h3>
+        <p>Soporte directo, pedidos y avisos de stock de Paneles.</p>
+        <!-- EDITA: si tienen un número fijo de atención, agrégalo aquí, por ejemplo: -->
+        <!-- <div class="community-number">+57 300 000 0000</div> -->
+        <a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener" class="community-cta whatsapp">
+          Unirme al WhatsApp
+        </a>
+      </div>
+
+      <div class="community-card discord reveal reveal-delay-1">
+        <div class="community-icon discord">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M20.32 5.36A18.2 18.2 0 0015.9 4c-.2.36-.42.85-.58 1.23a16.9 16.9 0 00-4.63 0c-.16-.39-.4-.87-.6-1.23a18.1 18.1 0 00-4.43 1.37C2.9 8.9 2.2 12.36 2.53 15.77a18.3 18.3 0 005.53 2.8c.45-.6.84-1.25 1.18-1.93-.65-.24-1.27-.54-1.85-.9.15-.11.3-.23.45-.35a13 13 0 0011.24 0c.15.12.3.24.45.35-.58.36-1.2.66-1.85.9.34.68.73 1.33 1.18 1.93a18.24 18.24 0 005.53-2.8c.4-3.95-.62-7.38-2.61-10.4zM9.68 13.7c-.83 0-1.5-.77-1.5-1.7s.66-1.7 1.5-1.7 1.51.77 1.5 1.7c0 .93-.66 1.7-1.5 1.7zm4.65 0c-.83 0-1.5-.77-1.5-1.7s.66-1.7 1.5-1.7 1.51.77 1.5 1.7c0 .93-.66 1.7-1.5 1.7z"/></svg>
+        </div>
+        <h3>Comunidad de Discord</h3>
+        <p>Únete a los canales de la comunidad y entérate de todo.</p>
+        <div class="community-number">discord.gg/6mkZnbuWgD</div>
+        <a href="https://discord.gg/6mkZnbuWgD" target="_blank" rel="noopener" class="community-cta discord">
+          Unirme al Discord
+        </a>
+      </div>
+
+      <!-- EDITA: cuando tengan Instagram listo, duplica una .community-card aquí siguiendo la misma estructura -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z" stroke="url(#brandGrad2)" stroke-width="2"/>
+            <defs>
+              <linearGradient id="brandGrad2" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#24B6A6"/>
+                <stop offset="1" stop-color="#FF8A3D"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          RIO<span>RISE</span>
+        </a>
+        <p>Tienda de Paneles para Riorise. Compra rápida, entrega directa y atención por WhatsApp y Discord.</p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <a href="#inicio">Inicio</a>
+          <a href="#paneles">Paneles</a>
+          <a href="#comunidad">Comunidad</a>
+        </div>
+        <div class="footer-col">
+          <h4>Comunidad</h4>
+          <a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://discord.gg/6mkZnbuWgD" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-fine">
+      <p>
+        Riorise Store es una tienda de terceros dedicada a la venta de Paneles del juego Riorise.
+        No estamos afiliados oficialmente con los desarrolladores del juego. Los precios pueden
+        variar sin previo aviso y se confirman siempre antes de cada compra por WhatsApp.
+      </p>
+      <p class="support">Soporte Cliente: <a href="mailto:sombrastore@outlook.com">sombrastore@outlook.com</a> · © <span id="year"></span> Riorise Store</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Botón flotante de WhatsApp (móvil) -->
+<a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener" class="float-whatsapp" aria-label="Escribir por WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.89.53 3.66 1.44 5.17L2 22l4.97-1.4A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.76 1.24-.45.05-1 .07-1.62-.1-.37-.1-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.9-2.12.23-.25.5-.31.67-.31h.48c.15 0 .36-.06.56.43.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.26.33-.37.44-.12.12-.25.26-.11.5.14.25.63 1.04 1.35 1.68.93.83 1.71 1.09 1.96 1.21.25.12.4.1.55-.06.15-.17.63-.73.8-.98.17-.25.34-.2.56-.12.23.08 1.47.7 1.72.82.25.13.42.19.48.29.06.11.06.62-.16 1.24z"/></svg>
+</a>
+
+<script>
+(function(){
+  "use strict";
+
+  // Año dinámico
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Header: fondo sólido al hacer scroll
+  var header = document.getElementById('siteHeader');
+  var lastScroll = 0;
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    if (y > 40) header.classList.add('is-scrolled');
+    else header.classList.remove('is-scrolled');
+    lastScroll = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Menú móvil
+  var toggle = document.getElementById('navToggle');
+  var panel = document.getElementById('mobilePanel');
+  function closeMenu(){
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', function(){
+    var isOpen = toggle.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    panel.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+
+  // Revelado al hacer scroll
+  var revealEls = document.querySelectorAll('.reveal:not(.is-visible)');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  // Checkout real con Mercado Pago
+  var errorBox = document.getElementById('checkoutError');
+  document.querySelectorAll('.js-buy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var card = btn.closest('.panel-card');
+      var packageId = card.getAttribute('data-package-id');
+      var originalText = btn.textContent;
+
+      errorBox.classList.remove('is-visible');
+      btn.disabled = true;
+      btn.textContent = 'Redirigiendo…';
+
+      fetch('/api/create-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ packageId: packageId })
+      })
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data && data.init_point){
+            window.location.href = data.init_point;
+          } else {
+            throw new Error('Sin init_point');
+          }
+        })
+        .catch(function(err){
+          console.error('Error de checkout:', err);
+          errorBox.classList.add('is-visible');
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+    });
+  });
+
+  // Ligero parallax del río del hero (desactivado si el usuario prefiere menos movimiento)
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var riverPath = document.getElementById('riverPath');
+  if (riverPath && !prefersReduced){
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (!ticking){
+        window.requestAnimationFrame(function(){
+          var y = window.scrollY || window.pageYOffset;
+          var offset = Math.min(y * 0.06, 30);
+          riverPath.setAttribute('transform', 'translate(0,' + offset + ')');
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+})();
+</script>
+
+</body>
+</html>
