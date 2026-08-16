@@ -39,6 +39,12 @@ module.exports = async function handler(req, res) {
     req.headers.origin ||
     `https://${req.headers.host}`;
 
+  console.log('=== DEBUG MERCADO PAGO ===');
+  console.log('packageId:', packageId);
+  console.log('selected:', selected);
+  console.log('price:', selected.price);
+  console.log('typeof price:', typeof selected.price);
+
   const preferenceBody = {
     items: [
       {
