@@ -40,6 +40,29 @@
   html, body{ background:var(--night); }
   section, .hero{ scroll-margin-top:90px; }
 
+  /* Marca de agua fija: el logo "persigue" el scroll por toda la página.
+     mix-blend-mode:screen hace que el negro de la imagen se vuelva
+     invisible, dejando solo el trazo rojo flotando sobre el fondo. */
+  .site-watermark{
+    position:fixed;
+    inset:0;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    pointer-events:none;
+  }
+  .watermark-logo{
+    width:min(2600px, 150vw);
+    max-width:none;
+    mix-blend-mode:screen;
+    opacity:0.13;
+  }
+  @media (max-width:700px){
+    .watermark-logo{ width:min(1500px, 280vw); opacity:0.11; }
+  }
+
   body{
     font-family:var(--font-body);
     color:var(--ink-0);
@@ -259,26 +282,6 @@
     position:relative;
     z-index:2;
     text-align:center;
-  }
-  /* Imagen de fondo del hero, con capa roja encima para que el rojo domine */
-  .hero-bg-photo{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    /* EDITA: reemplaza "hero-bg.jpg" por el nombre real de tu imagen.
-       Súbela a la misma carpeta que index.html (o a una carpeta "img/"
-       y ajusta la ruta, ej: img/hero-bg.jpg) */
-    background-image:url('hero-bg.jpg');
-    background-size:cover;
-    background-position:center;
-  }
-  .hero-bg-photo::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(180deg, rgba(8,13,24,0.25) 0%, rgba(8,13,24,0.55) 45%, var(--night) 100%),
-      radial-gradient(120% 90% at 50% 15%, rgba(230,57,70,0.6) 0%, rgba(193,18,31,0.7) 55%, rgba(8,13,24,0.88) 100%);
   }
   .hero h1{
     font-size:clamp(48px, 9vw, 108px);
@@ -785,6 +788,11 @@
 </head>
 <body>
 
+<!-- Marca de agua del logo: fija en pantalla, se ve en toda la página al scrollear -->
+<div class="site-watermark" aria-hidden="true">
+  <img src="sombra-wordmark-tall.png" alt="" class="watermark-logo">
+</div>
+
 <!-- ============================================
      HEADER
      ============================================ -->
@@ -833,7 +841,6 @@
      ============================================ -->
 <section class="hero" id="inicio">
   <a id="top"></a>
-  <div class="hero-bg-photo" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="container hero-inner">
