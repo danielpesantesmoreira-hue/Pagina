@@ -18,10 +18,10 @@
     --night:        #080D18;   /* fondo base, noche cerrada */
     --night-2:      #0E1526;   /* paneles / tarjetas */
     --night-3:      #141D33;   /* bordes, hover */
-    --river-teal:   #24B6A6;   /* el río */
-    --river-teal-2: #1A8C80;
-    --dawn-amber:   #FF8A3D;   /* el amanecer */
-    --dawn-coral:   #FF5D7A;
+    --river-teal:   #E63946;   /* el río, ahora rojo */
+    --river-teal-2: #B3212E;
+    --dawn-amber:   #FF5A4E;   /* el amanecer, tono rojo-naranja */
+    --dawn-coral:   #C1121F;
     --ink-0:        #EDEFF6;   /* texto principal */
     --ink-1:        #A9B1C6;   /* texto secundario */
     --ink-2:        #6B7390;   /* texto terciario / fine print */
@@ -38,6 +38,7 @@
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
   html, body{ background:var(--night); }
+  section, .hero{ scroll-margin-top:90px; }
 
   body{
     font-family:var(--font-body);
@@ -169,12 +170,12 @@
     padding:10px 18px;
     border-radius:999px;
     background:var(--river-teal);
-    color:var(--night);
+    color:#FFF3F1;
     font-weight:600;
     font-size:14px;
     transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
   }
-  .nav-cta:hover{ background:var(--river-teal-2); transform:translateY(-1px); box-shadow:0 8px 20px -8px rgba(36,182,166,0.6); }
+  .nav-cta:hover{ background:var(--river-teal-2); transform:translateY(-1px); box-shadow:0 8px 20px -8px rgba(230,57,70,0.6); }
 
   .nav-toggle{
     display:none;
@@ -234,15 +235,16 @@
     padding-bottom:100px;
     overflow:hidden;
     background:
-      radial-gradient(120% 70% at 50% 0%, rgba(255,138,61,0.16) 0%, rgba(255,138,61,0) 55%),
+      radial-gradient(120% 70% at 50% 0%, rgba(255,90,78,0.16) 0%, rgba(255,90,78,0) 55%),
       linear-gradient(180deg, #080D18 0%, #0A1120 55%, #0B1424 100%);
   }
   .hero-glow{
     position:absolute;
+    z-index:1;
     left:50%; top:-10%;
     width:900px; height:900px;
     transform:translateX(-50%);
-    background:radial-gradient(circle, rgba(255,138,61,0.22) 0%, rgba(255,93,122,0.08) 40%, transparent 72%);
+    background:radial-gradient(circle, rgba(255,90,78,0.22) 0%, rgba(193,18,31,0.08) 40%, transparent 72%);
     filter:blur(10px);
     pointer-events:none;
   }
@@ -257,6 +259,26 @@
     position:relative;
     z-index:2;
     text-align:center;
+  }
+  /* Imagen de fondo del hero, con capa roja encima para que el rojo domine */
+  .hero-bg-photo{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    /* EDITA: reemplaza "hero-bg.jpg" por el nombre real de tu imagen.
+       Súbela a la misma carpeta que index.html (o a una carpeta "img/"
+       y ajusta la ruta, ej: img/hero-bg.jpg) */
+    background-image:url('hero-bg.jpg');
+    background-size:cover;
+    background-position:center;
+  }
+  .hero-bg-photo::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(8,13,24,0.25) 0%, rgba(8,13,24,0.55) 45%, var(--night) 100%),
+      radial-gradient(120% 90% at 50% 15%, rgba(230,57,70,0.6) 0%, rgba(193,18,31,0.7) 55%, rgba(8,13,24,0.88) 100%);
   }
   .hero h1{
     font-size:clamp(48px, 9vw, 108px);
@@ -296,7 +318,7 @@
   }
   .btn-primary{
     background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
-    color:#100804;
+    color:#FFF3F1;
   }
   .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(255,120,80,0.55); }
   .btn-ghost{
@@ -349,9 +371,20 @@
     gap:14px;
     padding:26px 24px;
     border-left:1px solid var(--line);
+    transition:background .25s ease;
   }
+  .trust-item:hover{ background:rgba(230,57,70,0.05); }
   .trust-item:first-child{ border-left:none; }
-  .trust-item svg{ flex-shrink:0; color:var(--river-teal); }
+  .trust-icon{
+    flex-shrink:0;
+    width:46px; height:46px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(230,57,70,0.12);
+    color:var(--river-teal);
+  }
   .trust-item h3{ font-size:15px; font-family:var(--font-body); font-weight:600; color:var(--ink-0); }
   .trust-item p{ font-size:13px; color:var(--ink-2); margin-top:2px; }
 
@@ -395,11 +428,11 @@
   }
   .panel-card:hover{
     transform:translateY(-6px);
-    border-color:rgba(36,182,166,0.4);
+    border-color:rgba(230,57,70,0.4);
     box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);
   }
   .panel-card.is-popular{
-    border-color:rgba(255,138,61,0.5);
+    border-color:rgba(255,90,78,0.5);
     background:linear-gradient(180deg, #11192B 0%, #0C1220 100%);
   }
   .popular-tag{
@@ -410,7 +443,7 @@
     letter-spacing:0.08em;
     text-transform:uppercase;
     background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
-    color:#100804;
+    color:#FFF3F1;
     padding:5px 12px;
     border-radius:999px;
     font-weight:600;
@@ -472,13 +505,13 @@
   .panel-buy:hover{
     background:var(--river-teal);
     border-color:var(--river-teal);
-    color:var(--night);
+    color:#FFF3F1;
     transform:translateY(-2px);
   }
   .panel-card.is-popular .panel-buy{
     background:linear-gradient(100deg, var(--dawn-amber), var(--dawn-coral));
     border-color:transparent;
-    color:#100804;
+    color:#FFF3F1;
   }
   .panel-card.is-popular .panel-buy:hover{ filter:brightness(1.08); }
 
@@ -491,8 +524,8 @@
     margin-top:16px;
     padding:12px 16px;
     border-radius:10px;
-    background:rgba(255,93,122,0.1);
-    border:1px solid rgba(255,93,122,0.35);
+    background:rgba(193,18,31,0.1);
+    border:1px solid rgba(193,18,31,0.35);
     color:#FF9CB0;
     font-size:13.5px;
     display:none;
@@ -523,7 +556,7 @@
      ============================================ */
   .community{
     background:
-      radial-gradient(90% 60% at 50% 100%, rgba(36,182,166,0.10) 0%, transparent 60%),
+      radial-gradient(90% 60% at 50% 100%, rgba(230,57,70,0.10) 0%, transparent 60%),
       var(--night-2);
     border-top:1px solid var(--line);
   }
@@ -549,7 +582,7 @@
     transition:transform .3s ease, border-color .3s ease;
   }
   .community-card:hover{ transform:translateY(-6px); }
-  .community-card.whatsapp:hover{ border-color:rgba(36,182,166,0.5); }
+  .community-card.whatsapp:hover{ border-color:rgba(230,57,70,0.5); }
   .community-card.discord:hover{ border-color:rgba(114,137,218,0.5); }
 
   .community-icon{
@@ -560,7 +593,7 @@
     justify-content:center;
     margin-bottom:20px;
   }
-  .community-icon.whatsapp{ background:rgba(36,182,166,0.12); color:#2FD9B9; }
+  .community-icon.whatsapp{ background:rgba(230,57,70,0.12); color:#FF7A6E; }
   .community-icon.discord{ background:rgba(114,137,218,0.14); color:#8B9EFF; }
 
   .community-card h3{
@@ -592,7 +625,7 @@
     font-weight:600;
     transition:transform .25s ease, filter .25s ease;
   }
-  .community-cta.whatsapp{ background:#24B6A6; color:#06110E; }
+  .community-cta.whatsapp{ background:#E63946; color:#FFF3F1; }
   .community-cta.discord{ background:#7289DA; color:#0B0E1D; }
   .community-cta:hover{ transform:translateY(-2px); filter:brightness(1.08); }
 
@@ -674,21 +707,52 @@
     z-index:90;
     width:56px; height:56px;
     border-radius:50%;
-    background:#24B6A6;
-    color:#06110E;
+    background:#E63946;
+    color:#FFF3F1;
     display:none;
     align-items:center;
     justify-content:center;
-    box-shadow:0 12px 26px -8px rgba(36,182,166,0.55);
+    box-shadow:0 12px 26px -8px rgba(230,57,70,0.55);
     transition:transform .25s ease;
   }
   .float-whatsapp:active{ transform:scale(0.94); }
+
+  /* ============================================
+     BOTONES FLOTANTES: música y volver arriba
+     ============================================ */
+  .float-stack{
+    position:fixed;
+    left:18px;
+    bottom:18px;
+    z-index:90;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .float-btn{
+    width:50px; height:50px;
+    border-radius:50%;
+    background:var(--night-2);
+    border:1px solid var(--line);
+    color:var(--ink-0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 12px 26px -8px rgba(0,0,0,0.5);
+    transition:transform .25s ease, border-color .25s ease, opacity .25s ease;
+  }
+  .float-btn:hover{ border-color:rgba(230,57,70,0.5); transform:translateY(-2px); }
+  .float-btn:active{ transform:scale(0.94); }
+  .float-btn.is-active{ background:var(--river-teal); border-color:var(--river-teal); color:#FFF3F1; }
+  #backToTop{ opacity:0; pointer-events:none; transform:translateY(10px); }
+  #backToTop.is-visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
 
   /* ============================================
      RESPONSIVE
      ============================================ */
   @media (max-width: 980px){
     .nav-links{ display:none; }
+    .nav-cta{ display:none; }
     .nav-toggle{ display:flex; }
     .trust-grid{ grid-template-columns:1fr; }
     .trust-item{ border-left:none; border-top:1px solid var(--line); }
@@ -732,8 +796,8 @@
         <path d="M16 2 V30 M4 9 L28 23 M28 9 L4 23" stroke="url(#brandGrad)" stroke-width="1" opacity="0.5"/>
         <defs>
           <linearGradient id="brandGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#24B6A6"/>
-            <stop offset="1" stop-color="#FF8A3D"/>
+            <stop stop-color="#E63946"/>
+            <stop offset="1" stop-color="#FF5A4E"/>
           </linearGradient>
         </defs>
       </svg>
@@ -747,7 +811,7 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <a href="#paneles" class="nav-cta" style="display:none" id="navCtaDesktop">Comprar ahora</a>
+  <a href="#paneles" class="nav-cta" id="navCtaDesktop">Comprar ahora</a>
 
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span>
@@ -769,6 +833,7 @@
      ============================================ -->
 <section class="hero" id="inicio">
   <a id="top"></a>
+  <div class="hero-bg-photo" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="container hero-inner">
@@ -809,9 +874,9 @@
   <svg class="hero-river" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="riverGrad" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#FF8A3D" stop-opacity="0.55"/>
-        <stop offset="45%" stop-color="#24B6A6" stop-opacity="0.55"/>
-        <stop offset="100%" stop-color="#1A8C80" stop-opacity="0.35"/>
+        <stop offset="0%" stop-color="#FF5A4E" stop-opacity="0.55"/>
+        <stop offset="45%" stop-color="#E63946" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#B3212E" stop-opacity="0.35"/>
       </linearGradient>
     </defs>
     <path id="riverPath" fill="none" stroke="url(#riverGrad)" stroke-width="2"
@@ -827,21 +892,27 @@
 <div class="trust reveal">
   <div class="container trust-grid">
     <div class="trust-item">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+      <div class="trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
+      </div>
       <div>
         <h3>Entrega inmediata</h3>
         <p>Recibes tus Paneles apenas confirmamos el pago.</p>
       </div>
     </div>
     <div class="trust-item">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/></svg>
+      <div class="trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/></svg>
+      </div>
       <div>
         <h3>Compra directa y segura</h3>
         <p>Coordinada uno a uno por WhatsApp, sin intermediarios.</p>
       </div>
     </div>
     <div class="trust-item">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      <div class="trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      </div>
       <div>
         <h3>Comunidad activa</h3>
         <p>Únete a cientos de jugadores en WhatsApp y Discord.</p>
@@ -866,8 +937,8 @@
       <!-- Paquete 1 -->
       <div class="panel-card reveal" data-package-id="pack-60" data-price="6000">
         <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#24B6A6" stroke-width="1.6"/>
-          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#24B6A6" stroke-width="0.8" opacity="0.4"/>
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#E63946" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#E63946" stroke-width="0.8" opacity="0.4"/>
         </svg>
         <div class="panel-amount">1 <small>DIA</small></div>
         <p class="panel-label">Paquete inicial</p>
@@ -878,8 +949,8 @@
       <!-- Paquete 2 -->
       <div class="panel-card reveal reveal-delay-1" data-package-id="pack-325" data-price="28000">
         <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#24B6A6" stroke-width="1.6"/>
-          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#24B6A6" stroke-width="0.8" opacity="0.4"/>
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#E63946" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#E63946" stroke-width="0.8" opacity="0.4"/>
         </svg>
         <div class="panel-amount">7 <small>DIAS</small></div>
         <p class="panel-label">Paquete estándar</p>
@@ -891,8 +962,8 @@
       <div class="panel-card is-popular reveal reveal-delay-2" data-package-id="pack-660" data-price="54000">
         <span class="popular-tag">Más elegido</span>
         <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#FF8A3D" stroke-width="1.6"/>
-          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#FF8A3D" stroke-width="0.8" opacity="0.5"/>
+          <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#FF5A4E" stroke-width="1.6"/>
+          <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#FF5A4E" stroke-width="0.8" opacity="0.5"/>
         </svg>
         <div class="panel-amount">30 <small>DIAS</small></div>
         <p class="panel-label">Mejor relación</p>
@@ -974,8 +1045,8 @@
             <path d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z" stroke="url(#brandGrad2)" stroke-width="2"/>
             <defs>
               <linearGradient id="brandGrad2" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#24B6A6"/>
-                <stop offset="1" stop-color="#FF8A3D"/>
+                <stop stop-color="#E63946"/>
+                <stop offset="1" stop-color="#FF5A4E"/>
               </linearGradient>
             </defs>
           </svg>
@@ -1014,6 +1085,21 @@
 <a href="https://chat.whatsapp.com/It4ignwz9rt1DMbFD1ECah?s=cl&p=a&ilr=1" target="_blank" rel="noopener" class="float-whatsapp" aria-label="Escribir por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.89.53 3.66 1.44 5.17L2 22l4.97-1.4A9.94 9.94 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.76 1.24-.45.05-1 .07-1.62-.1-.37-.1-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.9-2.12.23-.25.5-.31.67-.31h.48c.15 0 .36-.06.56.43.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.12.28-.24.43-.12.15-.26.33-.37.44-.12.12-.25.26-.11.5.14.25.63 1.04 1.35 1.68.93.83 1.71 1.09 1.96 1.21.25.12.4.1.55-.06.15-.17.63-.73.8-.98.17-.25.34-.2.56-.12.23.08 1.47.7 1.72.82.25.13.42.19.48.29.06.11.06.62-.16 1.24z"/></svg>
 </a>
+
+<!-- Música de fondo + volver arriba -->
+<!-- EDITA: reemplaza "background-music.mp3" por el nombre real de tu archivo
+     de audio. Súbelo a la misma carpeta que index.html (o a "audio/" y
+     ajusta la ruta, ej: audio/background-music.mp3) -->
+<audio id="bgMusic" src="Natiruts - Sorri, Sou Rei (Natiruts Acústico Ao Vivo no Rio de Janeiro).mp3" loop preload="auto"></audio></audio>
+<div class="float-stack">
+  <button type="button" class="float-btn" id="musicToggle" aria-label="Reproducir música" aria-pressed="false">
+    <svg id="musicIconOn" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+    <svg id="musicIconOff" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+  </button>
+  <button type="button" class="float-btn" id="backToTop" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+</div>
 
 <script>
 (function(){
@@ -1101,6 +1187,62 @@
           btn.textContent = originalText;
         });
     });
+  });
+
+  // Música de fondo: los navegadores bloquean el autoplay con sonido sin
+  // interacción del usuario. Truco: intentamos reproducir apenas carga la
+  // página; si el navegador lo bloquea, la activamos en el primer click/touch
+  // que el usuario haga en cualquier parte de la página (siente "automático").
+  var music = document.getElementById('bgMusic');
+  var musicToggle = document.getElementById('musicToggle');
+  var iconOn = document.getElementById('musicIconOn');
+  var iconOff = document.getElementById('musicIconOff');
+
+  function setMusicIcon(playing){
+    musicToggle.classList.toggle('is-active', playing);
+    musicToggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    iconOn.style.display = playing ? 'block' : 'none';
+    iconOff.style.display = playing ? 'none' : 'block';
+  }
+
+  function tryAutoplay(){
+    music.play().then(function(){
+      setMusicIcon(true);
+    }).catch(function(){
+      // Bloqueado por el navegador: esperar el primer gesto del usuario
+      var startOnFirstGesture = function(){
+        music.play().then(function(){ setMusicIcon(true); }).catch(function(){});
+        document.removeEventListener('click', startOnFirstGesture);
+        document.removeEventListener('touchstart', startOnFirstGesture);
+        document.removeEventListener('keydown', startOnFirstGesture);
+      };
+      document.addEventListener('click', startOnFirstGesture, { once:true });
+      document.addEventListener('touchstart', startOnFirstGesture, { once:true });
+      document.addEventListener('keydown', startOnFirstGesture, { once:true });
+    });
+  }
+  tryAutoplay();
+
+  musicToggle.addEventListener('click', function(){
+    if (music.paused){
+      music.play().catch(function(){ /* si falla (ej. archivo no subido aún), no rompe la página */ });
+      setMusicIcon(true);
+    } else {
+      music.pause();
+      setMusicIcon(false);
+    }
+  });
+
+  // Volver arriba
+  var backToTop = document.getElementById('backToTop');
+  function onScrollTop(){
+    if ((window.scrollY || window.pageYOffset) > 500) backToTop.classList.add('is-visible');
+    else backToTop.classList.remove('is-visible');
+  }
+  window.addEventListener('scroll', onScrollTop, { passive: true });
+  onScrollTop();
+  backToTop.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   // Ligero parallax del río del hero (desactivado si el usuario prefiere menos movimiento)
