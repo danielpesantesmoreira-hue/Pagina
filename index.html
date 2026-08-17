@@ -4,27 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Riorise — Tienda oficial de Paneles</title>
-<meta name="description" content="Compra Paneles para Riorise de forma rápida y segura. Entrega inmediata y atención por WhatsApp y Discord.">
+<meta name="description" content="Compra Paneles para Riorise de forma rapida y segura. Entrega inmediata y atención por WhatsApp y Discord.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
 <style>
-  /* ============================================
-     TOKENS — Riorise: amanecer sobre el río
-     ============================================ */
   :root{
-    --night:        #080D18;   /* fondo base, noche cerrada */
-    --night-2:      #0E1526;   /* paneles / tarjetas */
-    --night-3:      #141D33;   /* bordes, hover */
-    --river-teal:   #E63946;   /* el río, ahora rojo */
+    --night:        #080D18; 
+    --night-2:      #0E1526;
+    --night-3:      #141D33; 
+    --river-teal:   #E63946;  
     --river-teal-2: #B3212E;
-    --dawn-amber:   #FF5A4E;   /* el amanecer, tono rojo-naranja */
+    --dawn-amber:   #FF5A4E;   
     --dawn-coral:   #C1121F;
-    --ink-0:        #EDEFF6;   /* texto principal */
-    --ink-1:        #A9B1C6;   /* texto secundario */
-    --ink-2:        #6B7390;   /* texto terciario / fine print */
+    --ink-0:        #EDEFF6;   
+    --ink-1:        #A9B1C6;   
+    --ink-2:        #6B7390;   
     --line:         rgba(237,239,246,0.08);
 
     --font-display: 'Rajdhani', sans-serif;
@@ -40,9 +37,6 @@
   html, body{ background:var(--night); }
   section, .hero{ scroll-margin-top:90px; }
 
-  /* Marca de agua fija: el logo "persigue" el scroll por toda la página.
-     mix-blend-mode:screen hace que el negro de la imagen se vuelva
-     invisible, dejando solo el trazo rojo flotando sobre el fondo. */
   .site-watermark{
     position:fixed;
     inset:0;
@@ -106,7 +100,6 @@
     background:var(--river-teal);
   }
 
-  /* Reveal on scroll */
   .reveal{
     opacity:0;
     transform:translateY(28px);
@@ -123,9 +116,6 @@
     *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
   }
 
-  /* ============================================
-     HEADER
-     ============================================ */
   .site-header{
     position:fixed;
     top:0; left:0; right:0;
@@ -245,9 +235,6 @@
   }
   .mobile-panel .nav-cta{ margin-top:12px; }
 
-  /* ============================================
-     HERO — río + amanecer
-     ============================================ */
   .hero{
     position:relative;
     min-height:100svh;
@@ -355,9 +342,6 @@
     letter-spacing:0.03em;
   }
 
-  /* ============================================
-     FRANJA DE CONFIANZA
-     ============================================ */
   .trust{
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
@@ -390,10 +374,6 @@
   }
   .trust-item h3{ font-size:15px; font-family:var(--font-body); font-weight:600; color:var(--ink-0); }
   .trust-item p{ font-size:13px; color:var(--ink-2); margin-top:2px; }
-
-  /* ============================================
-     SECCIONES — genérico
-     ============================================ */
   section{ padding:120px 0; position:relative; }
   .section-head{
     max-width:600px;
@@ -410,10 +390,6 @@
     color:var(--ink-1);
     max-width:520px;
   }
-
-  /* ============================================
-     PANELES — pricing
-     ============================================ */
   .panels-grid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
@@ -489,6 +465,14 @@
   .panel-card.is-popular .panel-price{ color:var(--dawn-amber); }
   .panel-price sup{ font-size:13px; top:-0.6em; }
 
+  .panel-commission{
+    margin-top:8px;
+    font-size:10.5px;
+    line-height:1.4;
+    color:var(--ink-2);
+    text-align:center;
+  }
+
   .panel-buy{
     margin-top:18px;
     display:flex;
@@ -544,9 +528,6 @@
     gap:8px;
   }
 
-  /* ============================================
-     RÍO divisor
-     ============================================ */
   .river-divider{
     width:100%;
     height:auto;
@@ -554,9 +535,6 @@
     margin-top:-1px;
   }
 
-  /* ============================================
-     COMUNIDAD / ATENCIÓN AL CLIENTE
-     ============================================ */
   .community{
     background:
       radial-gradient(90% 60% at 50% 100%, rgba(230,57,70,0.10) 0%, transparent 60%),
@@ -632,9 +610,6 @@
   .community-cta.discord{ background:#7289DA; color:#0B0E1D; }
   .community-cta:hover{ transform:translateY(-2px); filter:brightness(1.08); }
 
-  /* ============================================
-     FOOTER
-     ============================================ */
   footer{
     border-top:1px solid var(--line);
     padding:56px 0 30px;
@@ -700,9 +675,6 @@
   .footer-fine .support a{ color:var(--ink-1); }
   .footer-fine .support a:hover{ color:var(--river-teal); }
 
-  /* ============================================
-     WHATSAPP FLOTANTE (móvil)
-     ============================================ */
   .float-whatsapp{
     position:fixed;
     right:18px;
@@ -928,15 +900,12 @@
   </div>
 </div>
 
-<!-- ============================================
-     PANELES — PRECIOS
-     ============================================ -->
 <section id="paneles">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Paquetes disponibles</span>
       <h2>Elige tus Paneles</h2>
-      <p>Selecciona el paquete que más te convenga y paga directo con Mercado Pago: tarjeta, PSE, Nequi y más.</p>
+      <p>Selecciona el paquete que más te convenga y paga directo con Mercado Pago: tarjeta, PSE, Nequi y proximamente mas.</p>
     </div>
 
     <div class="panels-grid">
@@ -949,7 +918,8 @@
         </svg>
         <div class="panel-amount">1 <small>DIA</small></div>
         <p class="panel-label">Paquete inicial</p>
-        <div class="panel-price">$15.500 <sup>COP</sup></div>
+        <div class="panel-price">$18.500 <sup>COP</sup></div>
+        <p class="panel-commission">Se te cobrara este precio por la comision de Mercado Pago.</p>
         <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
       </div>
 
@@ -960,21 +930,23 @@
           <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#E63946" stroke-width="0.8" opacity="0.4"/>
         </svg>
         <div class="panel-amount">7 <small>DIAS</small></div>
-        <p class="panel-label">Paquete estándar</p>
-        <div class="panel-price">$30.500 <sup>COP</sup></div>
+        <p class="panel-label">Paquete estandar</p>
+        <div class="panel-price">$33.500 <sup>COP</sup></div>
+        <p class="panel-commission">Se te cobrara este precio por la comision de Mercado Pago.</p>
         <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
       </div>
 
       <!-- Paquete 3 — popular -->
       <div class="panel-card is-popular reveal reveal-delay-2" data-package-id="pack-660" data-price="54000">
-        <span class="popular-tag">Más elegido</span>
+        <span class="popular-tag">Mas elegido</span>
         <svg class="panel-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M24 4 L42 16 L42 32 L24 44 L6 32 L6 16 Z" stroke="#FF5A4E" stroke-width="1.6"/>
           <path d="M24 4 V44 M6 16 L42 32 M42 16 L6 32" stroke="#FF5A4E" stroke-width="0.8" opacity="0.5"/>
         </svg>
         <div class="panel-amount">30 <small>DIAS</small></div>
-        <p class="panel-label">Mejor relación</p>
-        <div class="panel-price">$60.800 <sup>COP</sup></div>
+        <p class="panel-label">Mejor relacion</p>
+        <div class="panel-price">$63.800 <sup>COP</sup></div>
+        <p class="panel-commission">Se te cobrara este precio por la comision de Mercado Pago.</p>
         <button type="button" class="panel-buy js-buy-btn">Pagar con Mercado Pago</button>
       </div>
 
